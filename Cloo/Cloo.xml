@@ -3606,6 +3606,24 @@
         <member name="F:Cloo.ComputeDeviceTypes.All">
             <summary> </summary>
         </member>
+        <member name="T:Cloo.KernelExecInfo">
+            <summary>
+            Specifies the information to be passed to kernel. 
+            </summary>
+        </member>
+        <member name="F:Cloo.KernelExecInfo.KernelExecInfoSVMPtrs">
+            <summary>
+            When calling clSetKernelExecInfo with CL_KERNEL_EXEC_INFO_SVM_PTRS to specify pointers to non-argument 
+            SVM buffers as extra arguments to a kernel, each of these pointers can be the SVM pointer returned 
+            by clSVMAlloc or can be a pointer + offset into the SVM region.
+            </summary>
+        </member>
+        <member name="F:Cloo.KernelExecInfo.KernelExecInfoSVMFineGrainSystem">
+            <summary>
+            CL_KERNEL_EXEC_INFO_SVM_FINE_GRAIN_SYSTEM is used to indicate whether SVM pointers used by a 
+            kernel will refer to system allocations or not.
+            </summary>
+        </member>
         <member name="T:Cloo.ComputeDeviceInfo">
             <summary>
             The device info query symbols.

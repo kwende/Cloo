@@ -208,6 +208,25 @@ namespace Cloo
     }
 
     /// <summary>
+    /// Specifies the information to be passed to kernel. 
+    /// </summary>
+    [Flags]
+    public enum KernelExecInfo : int
+    {
+        /// <summary>
+        /// When calling clSetKernelExecInfo with CL_KERNEL_EXEC_INFO_SVM_PTRS to specify pointers to non-argument 
+        /// SVM buffers as extra arguments to a kernel, each of these pointers can be the SVM pointer returned 
+        /// by clSVMAlloc or can be a pointer + offset into the SVM region.
+        /// </summary>
+        KernelExecInfoSVMPtrs = 0x11B6,
+        /// <summary>
+        /// CL_KERNEL_EXEC_INFO_SVM_FINE_GRAIN_SYSTEM is used to indicate whether SVM pointers used by a 
+        /// kernel will refer to system allocations or not.
+        /// </summary>
+        KernelExecInfoSVMFineGrainSystem = 0x11B7
+    }
+
+    /// <summary>
     /// The device info query symbols.
     /// </summary>
     public enum ComputeDeviceInfo : int
