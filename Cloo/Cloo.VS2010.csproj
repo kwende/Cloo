@@ -84,6 +84,7 @@
     <Reference Include="System.Drawing" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ComputeSVMBuffer.cs" />
     <Compile Include="Source\Bindings\CL10.cs" />
     <Compile Include="Source\Bindings\CL11.cs" />
     <Compile Include="Source\Bindings\CL21.cs" />

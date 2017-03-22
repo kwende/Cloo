@@ -4,6 +4,31 @@
         <name>Cloo</name>
     </assembly>
     <members>
+        <member name="T:Cloo.ComputeSVMBuffer">
+            <summary>
+            Wraps the clSVMAlloc  / clSVMFree APIs. 
+            </summary>
+        </member>
+        <member name="M:Cloo.ComputeSVMBuffer.#ctor(Cloo.ComputeContext,Cloo.ComputeMemoryFlags,System.Int32)">
+            <summary>
+            Instantiates a new SVM buffer. 
+            </summary>
+        </member>
+        <member name="M:Cloo.ComputeSVMBuffer.Finalize">
+            <summary>
+            Finalizer. 
+            </summary>
+        </member>
+        <member name="M:Cloo.ComputeSVMBuffer.Dispose">
+            <summary>
+            Implements IDisposable.
+            </summary>
+        </member>
+        <member name="M:Cloo.ComputeSVMBuffer.InnerDispose(System.Boolean)">
+            <summary>
+            Generic IDisposable. 
+            </summary>
+        </member>
         <member name="T:Cloo.Bindings.CL10">
             <summary>
             Contains bindings to the OpenCL 1.0 functions.

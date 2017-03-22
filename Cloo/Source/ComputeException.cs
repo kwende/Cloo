@@ -375,5 +375,7 @@ namespace Cloo
     public class InvalidMipLevelComputeException : ComputeException
     { public InvalidMipLevelComputeException() : base(ComputeErrorCode.InvalidMipLevel) { } }
 
+
+
     #endregion
 }
