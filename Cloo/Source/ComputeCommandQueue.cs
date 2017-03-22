@@ -53,10 +53,10 @@ namespace Cloo
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         private readonly ComputeDevice device;
-        
+
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         private bool outOfOrderExec;
-        
+
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         private bool profiling;
 
@@ -115,15 +115,15 @@ namespace Cloo
             ComputeErrorCode error = ComputeErrorCode.Success;
             Handle = CL10.CreateCommandQueue(context.Handle, device.Handle, properties, out error);
             ComputeException.ThrowOnError(error);
-            
+
             SetID(Handle.Value);
-            
+
             this.device = device;
             this.context = context;
-            
+
             outOfOrderExec = ((properties & ComputeCommandQueueFlags.OutOfOrderExecution) == ComputeCommandQueueFlags.OutOfOrderExecution);
             profiling = ((properties & ComputeCommandQueueFlags.Profiling) == ComputeCommandQueueFlags.Profiling);
-            
+
             Events = new List<ComputeEventBase>();
 
             Trace.WriteLine("Create " + this + " in Thread(" + Thread.CurrentThread.ManagedThreadId + ").", "Information");
@@ -225,7 +225,7 @@ namespace Cloo
             sourceOffset.X = new IntPtr(sizeofT * sourceOffset.X.ToInt64());
             destinationOffset.X = new IntPtr(sizeofT * destinationOffset.X.ToInt64());
             region.X = new IntPtr(sizeofT * region.X.ToInt64());
-            
+
             int eventWaitListSize;
             CLEventHandle[] eventHandles = ComputeTools.ExtractHandles(events, out eventWaitListSize);
             bool eventsWritable = (events != null && !events.IsReadOnly);
@@ -401,6 +401,38 @@ namespace Cloo
                 events.Add(new ComputeEvent(newEventHandle[0], this));
 
             return mappedPtr;
+        }
+
+        /// <summary>
+        /// Handles shared virtual memory mapping. 
+        /// </summary>
+        public int SVMMap<T>(bool blocking, ComputeMemoryMappingFlags flags, IntPtr svmPtr, int numberOfElements, ICollection<ComputeEventBase> events)
+        {
+            int sizeofT = Marshal.SizeOf(typeof(T));
+
+            int eventWaitListSize;
+            CLEventHandle[] eventHandles = ComputeTools.ExtractHandles(events, out eventWaitListSize);
+            bool eventsWritable = (events != null && !events.IsReadOnly);
+            CLEventHandle[] newEventHandle = (eventsWritable) ? new CLEventHandle[1] : null;
+
+            int ret = CL21.clEnqueueSVMMap(Handle, blocking, flags, svmPtr, sizeofT * numberOfElements, eventWaitListSize, eventHandles, newEventHandle);
+
+            return ret;
+        }
+
+        /// <summary>
+        /// Handles shared virtual memory unmapping. 
+        /// </summary>
+        public int SvmUnMap<T>(IntPtr svmPtr, ICollection<ComputeEventBase> events)
+        {
+            int eventWaitListSize;
+            CLEventHandle[] eventHandles = ComputeTools.ExtractHandles(events, out eventWaitListSize);
+            bool eventsWritable = (events != null && !events.IsReadOnly);
+            CLEventHandle[] newEventHandle = (eventsWritable) ? new CLEventHandle[1] : null;
+
+            int ret = CL21.clEnqueueSVMUnmap(Handle, svmPtr, eventWaitListSize, eventHandles, newEventHandle);
+
+            return ret; 
         }
 
         /// <summary>

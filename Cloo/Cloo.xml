@@ -1404,6 +1404,16 @@
             <param name="events"> A collection of events that need to complete before this particular command can be executed. If <paramref name="events"/> is not <c>null</c> or read-only a new <see cref="T:Cloo.ComputeEvent"/> identifying this command is created and attached to the end of the collection. </param>
             <remarks> If <paramref name="blocking"/> is <c>true</c> this method will not return until the command completes. If <paramref name="blocking"/> is <c>false</c> this method will return immediately after the command is enqueued. </remarks>
         </member>
+        <member name="M:Cloo.ComputeCommandQueue.SVMMap``1(System.Boolean,Cloo.ComputeMemoryMappingFlags,System.IntPtr,System.Int32,System.Collections.Generic.ICollection{Cloo.ComputeEventBase})">
+            <summary>
+            Handles shared virtual memory mapping. 
+            </summary>
+        </member>
+        <member name="M:Cloo.ComputeCommandQueue.SvmUnMap``1(System.IntPtr,System.Collections.Generic.ICollection{Cloo.ComputeEventBase})">
+            <summary>
+            Handles shared virtual memory unmapping. 
+            </summary>
+        </member>
         <member name="M:Cloo.ComputeCommandQueue.Map(Cloo.ComputeImage,System.Boolean,Cloo.ComputeMemoryMappingFlags,Cloo.SysIntX3,Cloo.SysIntX3,System.Collections.Generic.ICollection{Cloo.ComputeEventBase})">
             <summary>
             Enqueues a command to map a part of a <see cref="T:Cloo.ComputeImage"/> into the host address space.
@@ -2727,6 +2737,16 @@
             <br/>
             Note that this method does not provide argument tracking. It is up to the user to reference the kernel arguments (i.e. prevent them from being garbage collected) until the kernel has finished execution.
             </remarks>
+        </member>
+        <member name="M:Cloo.ComputeKernel.SetExecInfo(Cloo.KernelExecInfo,System.Int32,System.IntPtr)">
+            <summary>
+            Handles clSetKernelExecInfo
+            </summary>
+        </member>
+        <member name="M:Cloo.ComputeKernel.SetSVMArgument(System.Int32,System.IntPtr)">
+            <summary>
+            Handles clSetKernelArgSVMPointer
+            </summary>
         </member>
         <member name="M:Cloo.ComputeKernel.SetLocalArgument(System.Int32,System.Int64)">
             <summary>

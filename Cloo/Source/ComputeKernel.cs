@@ -123,6 +123,7 @@ namespace Cloo
 
         #region Public methods
 
+
         /// <summary>
         /// Gets the amount of local memory in bytes used by the <see cref="ComputeKernel"/>.
         /// </summary>
@@ -197,6 +198,24 @@ namespace Cloo
         {
             ComputeErrorCode error = CL10.SetKernelArg(Handle, index, dataSize, dataAddr);
             ComputeException.ThrowOnError(error);
+        }
+
+        /// <summary>
+        /// Handles clSetKernelExecInfo
+        /// </summary>
+        public void SetExecInfo(KernelExecInfo info, int parameterSize, IntPtr value)
+        {
+            ComputeErrorCode error = (ComputeErrorCode)CL21.clSetKernelExecInfo(Handle, info, parameterSize, value);
+            ComputeException.ThrowOnError(error); 
+        }
+
+        /// <summary>
+        /// Handles clSetKernelArgSVMPointer
+        /// </summary>
+        public void SetSVMArgument(int index, IntPtr arg)
+        {
+            ComputeErrorCode error = (ComputeErrorCode)CL21.clSetKernelArgSVMPointer(Handle, index, arg);
+            ComputeException.ThrowOnError(error); 
         }
 
         /// <summary>
